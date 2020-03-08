@@ -1,9 +1,24 @@
-# event-2020-1-java
-b2e tw 2020 first event with java version
+# event-2020-1-1-java
+* b2e tw 2020 first event, first batch, java version
+* cowork this project for Slack Bot with following functions
 
-# function
-* 股價
-* 新聞, 天氣
-* 猜數字
-* 發票, 對發票
-* 找飲料單, 訂飲料
+# functions
+* 查詢股價
+* 查詢新聞和天氣
+* 遊戲，猜數字
+* 查詢發票，對發票
+* 找飲料單，訂飲料
+
+# notation or skill
+* Slack Bot
+* crawler
+* TDD
+* Docker, DockerHub
+* CI, GitHub Action
+* GitHub Flow
+  * Fork, Pull Request, Code Review
+  
+# tool recommendations
+> 還是可以使用別的工具唷，只是我想把時間放在實作本身，如果是其他工具就沒有辦法花時間幫除錯
+* Intellij IDEA Community or Premium
+* Sourcetree
