@@ -1,6 +1,6 @@
 # event-2020-1-1-java
 * b2e tw 2020 first event, first batch, java version
-* cowork this project for Slack Bot with following functions
+* cowork this project for **Slack Bot** with following functions
 
 # function
 * 查詢股價
