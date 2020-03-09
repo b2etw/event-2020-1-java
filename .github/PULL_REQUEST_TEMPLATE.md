@@ -1,5 +1,4 @@
 # Checklist:
-- [ ] Name of Pull Request is same as related Issue.
 - [ ] My code follows the style guidelines of this project (IntelliJ Default)
 - [ ] My changes generate no new warnings
 - [ ] I have performed a self-review of my own code
