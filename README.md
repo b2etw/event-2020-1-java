@@ -1,4 +1,4 @@
-# 🥇event-2020-1-1-java
+# 🥇event-2020-1-java
 * b2e tw 2020 first event, first batch, Java version
 * cowork this project for **Slack Bot** with following functions
 
