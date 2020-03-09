@@ -16,6 +16,7 @@
 # Notation or Skill
 * Slack Bot
 * Web Crawler
+* DDD
 * TDD
 * Docker, DockerHub
 * CI, GitHub Action
