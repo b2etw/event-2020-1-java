@@ -1,4 +1,4 @@
-# 🥇event-2020-1-java
+# 🥇event-2020-1-java ![Java CI with Maven](https://github.com/b2etw/event-2020-1-java/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master&event=push)
 * b2e tw 2020 first event, Java version
 * cowork this project for **Slack Bot** with following functions
 
