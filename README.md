@@ -3,11 +3,11 @@
 * cowork this project for **Slack Bot** with following functions
 
 # Function
-* 查詢股價 📈
-* 查詢新聞和天氣 🌤
-* 猜數字遊戲 1️⃣2️⃣
-* 查詢發票和對發票 💰
-* 找飲料單和訂飲料統計 🥤
+* 📈 [查詢股價](https://github.com/b2etw/event-2020-1-java/issues/1)
+* 🌤 [查詢新聞和天氣](https://github.com/b2etw/event-2020-1-java/issues/2) 
+* 1️⃣ [猜數字遊戲](https://github.com/b2etw/event-2020-1-java/issues/3)
+* 💰 [查詢發票和對發票](https://github.com/b2etw/event-2020-1-java/issues/4) 
+* 🥤 [找飲料單和訂飲料統計](https://github.com/b2etw/event-2020-1-java/issues/5)
 
 # Prerequisite
 * GitHub Account
