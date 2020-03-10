@@ -66,8 +66,7 @@
                                 <entrypoint>
                                     <arg>/bin/sh</arg>
                                     <arg>-c</arg>
-                                    <arg>java -Xms512m -Xmx512m -Dspring.profiles.active=${activeProfiles} -cp
-                                        /app/resources:/app/classes:/app/libs/* tw.b2e.Event20201JavaApplication
+                                    <arg>java -Xms512m -Xmx512m -Dspring.profiles.active=${activeProfiles} -cp /app/resources:/app/classes:/app/libs/* tw.b2e.Event20201JavaApplication
                                     </arg>
                                 </entrypoint>
                             </container>
