@@ -12,6 +12,10 @@
     <artifactId>event-2020-1-java</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
+    <properties>
+        <java.version>11</java.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -41,6 +45,14 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <release>${java.version}</release>
+                    <source>${java.version}</source>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -65,7 +77,8 @@
                                 <entrypoint>
                                     <arg>/bin/sh</arg>
                                     <arg>-c</arg>
-                                    <arg>java -Xms512m -Xmx512m -Dspring.profiles.active=${activeProfiles} -cp /app/resources:/app/classes:/app/libs/* tw.b2e.Event20201JavaApplication
+                                    <arg>java -Xms512m -Xmx512m -Dspring.profiles.active=${activeProfiles} -cp
+                                        /app/resources:/app/classes:/app/libs/* tw.b2e.Event20201JavaApplication
                                     </arg>
                                 </entrypoint>
                             </container>
@@ -84,5 +97,4 @@
             </build>
         </profile>
     </profiles>
-
 </project>
