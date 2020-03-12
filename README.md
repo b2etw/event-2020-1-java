@@ -29,3 +29,6 @@
 > 還是可以使用別的工具唷，只是我想把時間放在實作本身，如果是其他工具就沒有辦法花時間幫除錯
 * IntelliJ IDEA Community or Ultimate
 * Sourcetree
+
+# References
+* https://slack.dev/java-slack-sdk/guides/getting-started-with-bolt
