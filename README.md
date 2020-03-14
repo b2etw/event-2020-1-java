@@ -32,3 +32,4 @@
 
 ## References
 * https://slack.dev/java-slack-sdk/guides/getting-started-with-bolt
+* [Slack Bot Install](./doc/slack-bot-install.md)
