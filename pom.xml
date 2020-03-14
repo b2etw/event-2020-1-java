@@ -22,11 +22,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -77,8 +72,7 @@
                                 <entrypoint>
                                     <arg>/bin/sh</arg>
                                     <arg>-c</arg>
-                                    <arg>java -Xms512m -Xmx512m -Dspring.profiles.active=${activeProfiles} -cp
-                                        /app/resources:/app/classes:/app/libs/* tw.b2e.Event20201JavaApplication
+                                    <arg>java -Xms512m -Xmx512m -Dspring.profiles.active=${activeProfiles} -cp /app/resources:/app/classes:/app/libs/* tw.b2e.Event20201JavaApplication
                                     </arg>
                                 </entrypoint>
                             </container>
