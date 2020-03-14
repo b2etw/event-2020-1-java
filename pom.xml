@@ -62,7 +62,7 @@
                         <version>1.8.0</version>
                         <configuration>
                             <from>
-                                <image>openjdk:8u232-jre-slim</image>
+                                <image>openjdk:11-jre-slim</image>
                             </from>
                             <to>
                                 <image>taiwanbackendgroup/${project.name}:${project.version}</image>
