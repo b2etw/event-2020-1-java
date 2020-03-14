@@ -32,3 +32,5 @@
 
 ## References
 * https://slack.dev/java-slack-sdk/guides/getting-started-with-bolt
+* https://slack.dev/java-slack-sdk/guides/supported-web-frameworks
+* [Slack Bot Install](./doc/slack-bot-install.md)
