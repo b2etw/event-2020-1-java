@@ -1,4 +1,4 @@
-package tw.b2e.config;
+package tw.b2e.slack;
 
 import com.slack.api.bolt.App;
 import org.springframework.context.annotation.Bean;
