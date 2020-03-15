@@ -11,7 +11,7 @@ public class SlackConfig {
     public App initSlackApp() {
         App app = new App();
         app.command("/hello", (req, ctx) -> {
-            return ctx.ack("What's up?");
+            return ctx.ack("What's up?????");
         });
 
         return app;
