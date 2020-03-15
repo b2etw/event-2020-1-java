@@ -10,7 +10,7 @@
     </parent>
     <groupId>tw.b2e</groupId>
     <artifactId>event-2020-1-java</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1-bowman</version>
 
     <properties>
         <java.version>11</java.version>
@@ -20,6 +20,16 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.slack.api</groupId>
+            <artifactId>bolt</artifactId>
+            <version>1.0.0-RC3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.slack.api</groupId>
+            <artifactId>bolt-servlet</artifactId>
+            <version>1.0.0-RC3</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -62,7 +72,7 @@
                         <version>1.8.0</version>
                         <configuration>
                             <from>
-                                <image>openjdk:8u232-jre-slim</image>
+                                <image>openjdk:11-jre-slim</image>
                             </from>
                             <to>
                                 <image>taiwanbackendgroup/${project.name}:${project.version}</image>
