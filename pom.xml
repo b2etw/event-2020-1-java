@@ -10,7 +10,7 @@
     </parent>
     <groupId>tw.b2e</groupId>
     <artifactId>event-2020-1-java</artifactId>
-    <version>0.0.1-bowman</version>
+    <version>0.0.2-bowman</version>
 
     <properties>
         <java.version>11</java.version>
