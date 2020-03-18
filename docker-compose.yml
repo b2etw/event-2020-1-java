@@ -1,0 +1,12 @@
+services:
+  event-2020-1-java:
+    image: taiwanbackendgroup/event-2020-1-java:0.0.1-bowman
+    privileged: true
+    ports:
+      - "8080:8080"
+    environment:
+      - TZ=Asia/Taipei
+      - activeProfiles=dev
+
+networks:
+  default:
