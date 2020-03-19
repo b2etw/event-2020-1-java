@@ -64,7 +64,6 @@ public class PrizeNumberObject {
             }
 
             return true;
-
         } catch (IOException e) {
             e.printStackTrace();
             return false;
