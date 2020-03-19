@@ -33,7 +33,6 @@ public class PrizeNumberObject {
 
     public boolean getPrizeNumber(){
         try {
-
             doc = Jsoup.connect(url).timeout(3000).get();
 
             Elements group1 = doc.select("td[headers=specialPrize][class=number]");
