@@ -6,7 +6,7 @@ import tw.b2e.common.Router;
 
 @Component
 public class ReceiptRouter implements Router<SlashCommandRequest> {
-
+@Override
     public String handle(SlashCommandRequest sReq){
         String aa = sReq.getRequestBodyAsString();
         System.out.println(aa);
