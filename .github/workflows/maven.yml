@@ -5,9 +5,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ bowman ]
+    branches: [ master ]
   pull_request:
-    branches: [ bowman ]
+    branches: [ master ]
   release:
     types: [published, created, edited]
 
