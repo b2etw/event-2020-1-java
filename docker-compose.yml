@@ -2,7 +2,7 @@ version: "3"
 
 services:
   event-2020-1-java:
-    image: taiwanbackendgroup/event-2020-1-java:0.0.1-SNAPSHOT
+    image: taiwanbackendgroup/event-2020-1-java:0.0.1-luna
     privileged: true
     ports:
       - "8080:8080"
