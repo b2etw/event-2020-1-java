@@ -26,4 +26,4 @@ jobs:
       with:
         java-version: 11
     - name: Build with Maven
-      run: mvn -B package -P deploy-to-dockerhub -Djib.to.auth.username=taiwanbackendgroup -Djib.to.auth.password=${{ secrets.DOCKER_HUB_PASSWORD }} --file pom.xml
+      run: mvn -B package -DskipTests -P deploy-to-dockerhub -Djib.to.auth.username=taiwanbackendgroup -Djib.to.auth.password=${{ secrets.DOCKER_HUB_PASSWORD }} --file pom.xml
