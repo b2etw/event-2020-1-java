@@ -9,6 +9,8 @@ import javax.validation.constraints.NotEmpty;
 /**
  * SLACK properties.
  * Can ref: https://slack.dev/java-slack-sdk/guides/getting-started-with-bolt
+ * These properties priority first is LOCAL env variables and secondary is application.yml.
+ * Both of them will be validate by Spring framework NOT_EMPTY validation.
  */
 @Data
 @Validated
