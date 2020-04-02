@@ -24,12 +24,12 @@
         <dependency>
             <groupId>com.slack.api</groupId>
             <artifactId>bolt</artifactId>
-            <version>1.0.0-RC3</version>
+            <version>1.0.2</version>
         </dependency>
         <dependency>
             <groupId>com.slack.api</groupId>
             <artifactId>bolt-servlet</artifactId>
-            <version>1.0.0-RC3</version>
+            <version>1.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

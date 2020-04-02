@@ -1,0 +1,6 @@
+# Config for default env.
+# Config SLACK app env variables.
+# Can ref from: https://slack.dev/java-slack-sdk/guides/getting-started-with-bolt
+slack:
+  bot-token: 'xoxb-...your-own-valid-one'
+  signing-secret: '123abc...your-own-valid-one'
