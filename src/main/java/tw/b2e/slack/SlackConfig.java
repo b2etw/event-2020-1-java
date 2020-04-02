@@ -1,8 +1,12 @@
 package tw.b2e.slack;
 
 import com.slack.api.bolt.App;
+import com.slack.api.bolt.AppConfig;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import tw.b2e.SlackProperties;
 import tw.b2e.drink.DrinkRouter;
 import tw.b2e.game.GameRouter;
 import tw.b2e.news.NewsRouter;
@@ -12,7 +16,11 @@ import tw.b2e.stock.StockRouter;
 import javax.annotation.Resource;
 
 @Configuration
+@EnableConfigurationProperties(value = SlackProperties.class)
 public class SlackConfig {
+
+    @Resource
+    private SlackProperties slackProperties;
 
     @Resource
     private StockRouter stockRouter;
@@ -26,8 +34,19 @@ public class SlackConfig {
     private DrinkRouter drinkRouter;
 
     @Bean
-    public App initSlackApp() {
-        App app = new App();
+    public AppConfig appConfig() {
+        return new AppConfig().toBuilder()
+            .singleTeamBotToken(slackProperties.getBotToken())
+            .signingSecret(slackProperties.getSigningSecret())
+            .build();
+    }
+
+    @Bean
+    @ConditionalOnBean(value = AppConfig.class)
+    public App initSlackApp(AppConfig appConfig) {
+        App app = new App().toBuilder()
+            .appConfig(appConfig)
+            .build();
         app.command("/stock", (req, ctx) -> ctx.ack(stockRouter.handle(req)));
         app.command("/news", (req, ctx) -> ctx.ack(newsRouter.handle(req)));
         app.command("/game", (req, ctx) -> ctx.ack(gameRouter.handle(req)));
