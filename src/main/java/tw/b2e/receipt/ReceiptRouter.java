@@ -2,7 +2,6 @@ package tw.b2e.receipt;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
@@ -19,7 +18,6 @@ import tw.b2e.common.Router;
 import tw.b2e.receipt.service.BaseService;
 import tw.b2e.receipt.service.HelpService;
 import tw.b2e.receipt.service.UnknownService;
-import tw.b2e.receipt.service.WinListService;
 import tw.b2e.receipt.vo.CommandParam;
 import tw.b2e.receipt.common.CommandParamParser;
 
@@ -39,14 +37,11 @@ public class ReceiptRouter implements Router<SlashCommandRequest> {
 	@Resource
 	private HelpService helpService;
 	
-	@Resource
-	private WinListService winListService;
-	
 	@Bean
 	@ConditionalOnBean(value = HelpService.class)
 	public void initServiceMapping() {
+		//初始化時，將Service註冊進Mapping表
 		serviceMapping.put(HelpService.ACTION_COMMAND, helpService);
-		serviceMapping.put(WinListService.ACTION_COMMAND, winListService);
 	}
 
 	@Override
@@ -58,7 +53,7 @@ public class ReceiptRouter implements Router<SlashCommandRequest> {
 
 		logger.info("commandParam.getAction():" + commandParam.getAction());
 		
-		if (commandParam.getAction() == null) {
+		if (commandParam.getAction() == null) {//無參數時，預設為Help服務
 			return serviceMapping.get(HelpService.ACTION_COMMAND).execute(commandParam);
 		}else if(serviceMapping.get(commandParam.getAction()) == null) {
 			return unknownService.execute(commandParam);
