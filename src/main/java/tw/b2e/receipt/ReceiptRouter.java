@@ -2,7 +2,6 @@ package tw.b2e.receipt;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
@@ -19,7 +18,7 @@ import tw.b2e.common.Router;
 import tw.b2e.receipt.service.BaseService;
 import tw.b2e.receipt.service.HelpService;
 import tw.b2e.receipt.service.UnknownService;
-import tw.b2e.receipt.service.WinListService;
+import tw.b2e.receipt.service.WinService;
 import tw.b2e.receipt.vo.CommandParam;
 import tw.b2e.receipt.common.CommandParamParser;
 
@@ -40,13 +39,13 @@ public class ReceiptRouter implements Router<SlashCommandRequest> {
 	private HelpService helpService;
 	
 	@Resource
-	private WinListService winListService;
+	private WinService winService;
 	
 	@Bean
 	@ConditionalOnBean(value = HelpService.class)
 	public void initServiceMapping() {
 		serviceMapping.put(HelpService.ACTION_COMMAND, helpService);
-		serviceMapping.put(WinListService.ACTION_COMMAND, winListService);
+		serviceMapping.put(WinService.ACTION_COMMAND, winService);
 	}
 
 	@Override
