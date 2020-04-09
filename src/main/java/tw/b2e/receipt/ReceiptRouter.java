@@ -16,6 +16,7 @@ import com.slack.api.bolt.request.builtin.SlashCommandRequest;
 
 import tw.b2e.common.Router;
 import tw.b2e.receipt.service.BaseService;
+import tw.b2e.receipt.service.CheckService;
 import tw.b2e.receipt.service.HelpService;
 import tw.b2e.receipt.service.UnknownService;
 import tw.b2e.receipt.service.WinService;
@@ -41,11 +42,15 @@ public class ReceiptRouter implements Router<SlashCommandRequest> {
 	@Resource
 	private WinService winService;
 	
+	@Resource
+	private CheckService checkService;
+	
 	@Bean
 	@ConditionalOnBean(value = HelpService.class)
 	public void initServiceMapping() {
 		serviceMapping.put(HelpService.ACTION_COMMAND, helpService);
 		serviceMapping.put(WinService.ACTION_COMMAND, winService);
+		serviceMapping.put(CheckService.ACTION_COMMAND, checkService);
 	}
 
 	@Override
