@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import tw.b2e.receipt.dao.crawler.WinInfoDao;
 import tw.b2e.receipt.entity.WinInfo;
 import tw.b2e.receipt.enums.PrizeEnum;
+import tw.b2e.receipt.service.format.WinServiceFormat;
 import tw.b2e.receipt.vo.CommandParam;
 
 @Component
@@ -17,37 +18,9 @@ public class WinService implements BaseService {
 	public final static String ACTION_COMMAND = "win";
 
 	@Autowired
-	private WinInfoDao winInfoDao;
+	private WinInfoDao winInfoDao;	
+	public final static String RESULT_FORMAT = WinServiceFormat.RESULT_FORMAT;
 	
-	public final static String RESULT_FORMAT = "--------------------------期別:%s--------------------------\r\n" + 
-			"特別獎:%s\r\n" + 
-			"%s\r\n" + 
-			"----------------------------------------------------------------------\r\n" + 
-			"特獎:%s\r\n" + 
-			"%s\r\n" + 
-			"----------------------------------------------------------------------\r\n" + 
-			"頭獎:%s\r\n" + 
-			"%s\r\n" + 
-			"----------------------------------------------------------------------\r\n" + 
-			"二獎\r\n" + 
-			"%s\r\n" + 
-			"----------------------------------------------------------------------\r\n" + 
-			"三獎\r\n" + 
-			"%s\r\n" + 
-			"----------------------------------------------------------------------\r\n" + 
-			"四獎\r\n" + 
-			"%s\r\n" + 
-			"----------------------------------------------------------------------\r\n" + 
-			"五獎\r\n" + 
-			"%s\r\n" + 
-			"----------------------------------------------------------------------\r\n" + 
-			"六獎\r\n" + 
-			"%s\r\n" + 
-			"----------------------------------------------------------------------\r\n" + 
-			"增開六獎:%s\r\n" + 
-			"%s\r\n" +
-			"----------------------------------------------------------------------";
-
 	public final static String YEAR_PARAM_NAME = "-y";
 	public final static String MONTH_PARAM_NAME = "-m";	
 	public final static String YEAR_WITH_MONTH_PARAM_NAME = "-ym";

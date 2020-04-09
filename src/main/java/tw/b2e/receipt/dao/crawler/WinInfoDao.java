@@ -10,9 +10,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
+import tw.b2e.receipt.entity.PrizeInfo;
 import tw.b2e.receipt.entity.WinInfo;
 import tw.b2e.receipt.enums.PrizeEnum;
-import tw.b2e.receipt.entity.WinInfoDetail;
 
 @Component
 public class WinInfoDao {
@@ -63,48 +63,48 @@ public class WinInfoDao {
 		return result;
 	}
 	
-	private WinInfoDetail getSpecialFirst(Elements elements) {
-		return genWinInfoDetail(elements.get(1).child(1), elements.get(2).child(0));
+	private PrizeInfo getSpecialFirst(Elements elements) {
+		return genPrize(elements.get(1).child(1), elements.get(2).child(0));
 	}
-	private WinInfoDetail getSpecialSecond(Elements elements) {
-		return genWinInfoDetail(elements.get(3).child(1), elements.get(4).child(0));
+	private PrizeInfo getSpecialSecond(Elements elements) {
+		return genPrize(elements.get(3).child(1), elements.get(4).child(0));
 	}	
-	private WinInfoDetail getFirst(Elements elements) {
-		return genWinInfoDetail(elements.get(5).child(1), elements.get(6).child(0));
+	private PrizeInfo getFirst(Elements elements) {
+		return genPrize(elements.get(5).child(1), elements.get(6).child(0));
 	}
 	
-	private WinInfoDetail getSecond(Elements elements) {
-		return genWinInfoDetail(null, elements.get(7).child(1));
+	private PrizeInfo getSecond(Elements elements) {
+		return genPrize(null, elements.get(7).child(1));
 	}	
 	
-	private WinInfoDetail getThird(Elements elements) {
-		return genWinInfoDetail(null, elements.get(8).child(1));
+	private PrizeInfo getThird(Elements elements) {
+		return genPrize(null, elements.get(8).child(1));
 	}
 	
-	private WinInfoDetail getFourth(Elements elements) {
-		return genWinInfoDetail(null, elements.get(9).child(1));
+	private PrizeInfo getFourth(Elements elements) {
+		return genPrize(null, elements.get(9).child(1));
 	}
 	
-	private WinInfoDetail getFifth(Elements elements) {
-		return genWinInfoDetail(null, elements.get(10).child(1));
+	private PrizeInfo getFifth(Elements elements) {
+		return genPrize(null, elements.get(10).child(1));
 	}
 	
-	private WinInfoDetail getSixth(Elements elements) {
-		return genWinInfoDetail(null, elements.get(11).child(1));
+	private PrizeInfo getSixth(Elements elements) {
+		return genPrize(null, elements.get(11).child(1));
 	}
 	
-	private WinInfoDetail getExtraSixth(Elements elements) {
-		return genWinInfoDetail(elements.get(12).child(1), elements.get(13).child(0));
+	private PrizeInfo getExtraSixth(Elements elements) {
+		return genPrize(elements.get(12).child(1), elements.get(13).child(0));
 	}
 	
-	private WinInfoDetail genWinInfoDetail(Element numberElement, Element memoElement) {
-		WinInfoDetail result = new WinInfoDetail();
+	private PrizeInfo genPrize(Element numberElement, Element memoElement) {
+		PrizeInfo result = new PrizeInfo();
 		
 		if(numberElement != null)
 			result.setNumbers(numStringToList(numberElement.text()));
 		
 		if(memoElement != null)
-			result.setPrizeMemo(memoElement.text());
+			result.setMemo(memoElement.text());
 		
 		return result;
 	}

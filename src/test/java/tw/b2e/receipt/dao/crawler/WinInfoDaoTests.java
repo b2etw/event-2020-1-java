@@ -1,6 +1,6 @@
 package tw.b2e.receipt.dao.crawler;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,8 +20,8 @@ class WinInfoDaoTests {
 	@Autowired
 	private WinInfoDao winInfoDao;
 
-	@BeforeAll
-	public static void before() {
+	@BeforeEach
+	public void before() {
 		answerInfo = new WinInfo();
 		answerInfo.setPrizeMemo(PrizeEnum.SPECIAL_FIRST, "同期統一發票收執聯8位數號碼與特別獎號碼相同者獎金1,000萬元");
 		answerInfo.setPrizeMemo(PrizeEnum.SPECIAL_SECOND, "同期統一發票收執聯8位數號碼與特獎號碼相同者獎金200萬元");		

@@ -10,7 +10,7 @@ import tw.b2e.receipt.enums.PrizeEnum;
 
 public class WinInfo {
 	private String period;
-	private Map<PrizeEnum, WinInfoDetail> prizeInfo = new HashMap<PrizeEnum, WinInfoDetail>();
+	private Map<PrizeEnum, PrizeInfo> prizes = new HashMap<PrizeEnum, PrizeInfo>();
 		
 	public String getPeriod() {
 		return period;
@@ -21,24 +21,24 @@ public class WinInfo {
 	}
 
 	public List<String> get(PrizeEnum key) {		
-		return prizeInfo.get(key).getNumbers();
+		return prizes.get(key).getNumbers();
 	}
 	
 	public String getPrizeMemo(PrizeEnum key) {		
-		return prizeInfo.get(key).getPrizeMemo();
+		return prizes.get(key).getMemo();
 	}
 	
-	public void set(Map<PrizeEnum, WinInfoDetail> prizeInfo) {
-		this.prizeInfo = prizeInfo;
+	public void set(Map<PrizeEnum, PrizeInfo> prizes) {
+		this.prizes = prizes;
 	}
 	
-	public void setPrizeMemo(PrizeEnum key, String prizeMemo) {
-		if(prizeInfo.get(key) != null) {
-			prizeInfo.get(key).setPrizeMemo(prizeMemo);
+	public void setPrizeMemo(PrizeEnum key, String memo) {
+		if(prizes.get(key) != null) {
+			prizes.get(key).setMemo(memo);
 		}else {
-			WinInfoDetail detail = new WinInfoDetail();
-			detail.setPrizeMemo(prizeMemo);
-			prizeInfo.put(key, detail);
+			PrizeInfo prize = new PrizeInfo();
+			prize.setMemo(memo);
+			prizes.put(key, prize);
 		}
 	}
 	
@@ -53,30 +53,30 @@ public class WinInfo {
 	}
 	
 	public void add(PrizeEnum key, List<String> numbers) {
-		add(key, new WinInfoDetail(numbers, ""));
+		add(key, new PrizeInfo(numbers, ""));
 	}
 	
 	public void add(PrizeEnum key, List<String> numbers, String memo) {
-		add(key, new WinInfoDetail(numbers, memo));
+		add(key, new PrizeInfo(numbers, memo));
 	}
 	
-	public void add(PrizeEnum key, WinInfoDetail winInfoDetail) {
-		if(prizeInfo.get(key) != null) {
-			prizeInfo.get(key).getNumbers().addAll(winInfoDetail.getNumbers());
+	public void add(PrizeEnum key, PrizeInfo prize) {
+		if(prizes.get(key) != null) {
+			prizes.get(key).getNumbers().addAll(prize.getNumbers());
 		}else {
-			prizeInfo.put(key, winInfoDetail);
+			prizes.put(key, prize);
 		}
 	}
 	
 	public void clear() {
-		prizeInfo.clear();
+		prizes.clear();
 	}
 	
 	public int size() {
-		return prizeInfo.size();
+		return prizes.size();
 	}
 	
 	public Set<PrizeEnum> keySet() {
-		return prizeInfo.keySet();
+		return prizes.keySet();
 	}
 }
