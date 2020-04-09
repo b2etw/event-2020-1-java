@@ -54,12 +54,6 @@
 			<artifactId>jsoup</artifactId>
 			<version>1.13.1</version>
 		</dependency>
-
-<!-- 		<dependency> -->
-<!-- 			<groupId>com.github.abola</groupId> -->
-<!-- 			<artifactId>crawler</artifactId> -->
-<!-- 			<version>1.1.1</version> -->
-<!-- 		</dependency> -->
 	</dependencies>
 
 	<build>
