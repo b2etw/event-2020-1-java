@@ -1,4 +1,4 @@
-package tw.b2e.receipt.service.format;
+package tw.b2e.receipt.format.service;
 
 public class WinServiceFormat {
 	public final static String RESULT_FORMAT = "--------------------------期別:%s--------------------------\r\n" + 

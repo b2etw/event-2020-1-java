@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import tw.b2e.receipt.dao.crawler.WinInfoDao;
 import tw.b2e.receipt.entity.WinInfo;
 import tw.b2e.receipt.enums.PrizeEnum;
-import tw.b2e.receipt.service.format.WinServiceFormat;
+import tw.b2e.receipt.format.service.WinServiceFormat;
 import tw.b2e.receipt.vo.CommandParam;
 
 @Component
@@ -36,7 +36,9 @@ public class WinService implements BaseService {
 		}
 		
 		List<String> resultArgs = new ArrayList<String>();
+		
 		WinInfo winInfo = winInfoDao.get(period);		
+		
 		resultArgs.add(winInfo.getPeriod());
 		resultArgs.add(convertToString(winInfo.get(PrizeEnum.SPECIAL_FIRST)));
 		resultArgs.add(winInfo.getPrizeMemo(PrizeEnum.SPECIAL_FIRST));

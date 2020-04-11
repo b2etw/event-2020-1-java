@@ -2,7 +2,7 @@ package tw.b2e.receipt.common;
 
 import org.springframework.stereotype.Component;
 
-import tw.b2e.receipt.ParamValueIsNullExecution;
+import tw.b2e.receipt.execution.ParamValueIsNullExecution;
 import tw.b2e.receipt.vo.CommandParam;
 
 /* 
@@ -29,12 +29,11 @@ public class CommandParamParser {
 		
 		String[] params = paramString.split(" ");		
 		result.setAction(params[0]);
-				
 		for(int i = 1; i < params.length; i = i + 2) {
 			if(params.length < i + 2) {
-				throw new ParamValueIsNullExecution(String.format("switch %s requires a value", params[i]));
+				throw new ParamValueIsNullExecution(params[i]);
 			}else {
-			result.putParam(params[i], params[i + 1]);
+				result.putParam(params[i], params[i + 1]);
 			}			
 		}
 		

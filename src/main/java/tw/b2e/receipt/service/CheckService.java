@@ -13,7 +13,7 @@ import tw.b2e.receipt.dao.crawler.WinInfoDao;
 import tw.b2e.receipt.entity.Receipt;
 import tw.b2e.receipt.entity.WinInfo;
 import tw.b2e.receipt.enums.PrizeEnum;
-import tw.b2e.receipt.service.format.CheckServiceFormat;
+import tw.b2e.receipt.format.service.CheckServiceFormat;
 import tw.b2e.receipt.vo.CommandParam;
 
 @Service

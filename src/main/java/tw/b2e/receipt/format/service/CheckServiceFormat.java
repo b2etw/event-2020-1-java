@@ -1,4 +1,4 @@
-package tw.b2e.receipt.service.format;
+package tw.b2e.receipt.format.service;
 
 public class CheckServiceFormat {
 	public final static String RESULT_TITLE_FORMAT = "--------------------------查詢期別:%s-------------------------- \r\n";

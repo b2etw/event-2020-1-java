@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Assertions;
 
-import tw.b2e.receipt.ParamValueIsNullExecution;
+import tw.b2e.receipt.execution.ParamValueIsNullExecution;
 import tw.b2e.receipt.vo.CommandParam;
 
 @SpringBootTest
