@@ -47,11 +47,26 @@ public class SlackConfig {
         App app = new App().toBuilder()
             .appConfig(appConfig)
             .build();
-        app.command("/stock", (req, ctx) -> ctx.ack(stockRouter.handle(req)));
-        app.command("/news", (req, ctx) -> ctx.ack(newsRouter.handle(req)));
-        app.command("/game", (req, ctx) -> ctx.ack(gameRouter.handle(req)));
-        app.command("/receipt", (req, ctx) -> ctx.ack(receiptRouter.handle(req)));
-        app.command("/drink", (req, ctx) -> ctx.ack(drinkRouter.handle(req)));
+        app.command("/stock", (req, ctx) -> {
+            ctx.respond(stockRouter.handle(req));
+            return ctx.ack();
+        });
+        app.command("/news", (req, ctx) -> {
+            ctx.respond(newsRouter.handle(req));
+            return ctx.ack();
+        });
+        app.command("/game", (req, ctx) -> {
+            ctx.respond(gameRouter.handle(req));
+            return ctx.ack();
+        });
+        app.command("/receipt", (req, ctx) -> {
+            ctx.respond(receiptRouter.handle(req));
+            return ctx.ack();
+        });
+        app.command("/drink", (req, ctx) -> {
+            ctx.respond(drinkRouter.handle(req));
+            return ctx.ack();
+        });
 
         return app;
     }
