@@ -37,6 +37,7 @@ public class CommandParamParser {
 		
 		String[] params = paramString.split(" ");	
 		
+		//若有提供合法command清單則進行檢查，若非合法Command則拋出錯誤訊息
 		if(commandPool != null 
 			&& !commandPool.contains(params[0])) {
 			throw new UndefinedCommandExecution(params[0]);
@@ -44,6 +45,7 @@ public class CommandParamParser {
 		result.setAction(params[0]);		
 		
 		for(int i = 1; i < params.length; i = i + 2) {
+			//若參數非key與value結對傳入則拋出錯誤訊息
 			if(params.length < i + 2) {
 				throw new ParamValueIsNullExecution(params[i]);
 			}else {
