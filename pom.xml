@@ -13,54 +13,54 @@
 	<artifactId>event-2020-1-java</artifactId>
 	<version>0.0.1-luna</version>
 
-    <properties>
-        <java.version>11</java.version>
-        <slack.sdk.version>1.0.5</slack.sdk.version>
-        <okhttp.version>4.5.0</okhttp.version>
-    </properties>
+	<properties>
+		<java.version>11</java.version>
+		<slack.sdk.version>1.0.5</slack.sdk.version>
+		<okhttp.version>4.5.0</okhttp.version>
+	</properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.slack.api</groupId>
-            <artifactId>bolt</artifactId>
-            <version>${slack.sdk.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.slack.api</groupId>
-            <artifactId>bolt-servlet</artifactId>
-            <version>${slack.sdk.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-            <version>${okhttp.version}</version>
-        </dependency>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.slack.api</groupId>
+			<artifactId>bolt</artifactId>
+			<version>${slack.sdk.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.slack.api</groupId>
+			<artifactId>bolt-servlet</artifactId>
+			<version>${slack.sdk.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>${okhttp.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
-		</dependency>
 			<version>1.13.1</version>
-    </dependencies>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>
