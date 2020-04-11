@@ -40,7 +40,7 @@ class CommandParamParserTests {
 	@Test
 	void Should_GetParam_When_ActionWithMultipleParam() {
 		String action = "win";
-		String[] paramKeys = new String[] {"-y", "-m", "-i"};
+		String[] paramKeys = new String[] {"-y", "-m", "-t"};
 		String[] paramValues = new String[] {"2020", "04", "AB12345678"};
 		StringBuffer paramString = new StringBuffer(action);
 		for(int i = 0; i < paramKeys.length; i++) {
