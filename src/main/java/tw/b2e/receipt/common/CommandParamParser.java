@@ -1,34 +1,48 @@
 package tw.b2e.receipt.common;
 
+import java.util.Set;
+
 import org.springframework.stereotype.Component;
 
 import tw.b2e.receipt.execution.ParamValueIsNullExecution;
+import tw.b2e.receipt.execution.UndefinedCommandExecution;
 import tw.b2e.receipt.vo.CommandParam;
 
 /* 
  * @author NaiHua
  * 目的:解析slash command指令參數
  * 範例:
- * 	/receipt help => CommandParam物件 {"action":"help"}
+ * 	/receipt -help => CommandParam物件 {"action":"-help"}
  *  /receipt win -y 2019 -m 02 => CommandParam物件 {"action":"win", "params":{"-y":"2020", "-m":"02"}}
  */
 @Component
 public class CommandParamParser {
 		
+	
+	public CommandParam Parse(String paramString) {
+		return Parse(null, paramString);
+	}
+	
 	/**
 	 * 解析slash command參數
 	 * @param paramString
 	 * @return CommandParam
 	 */
-	public CommandParam Parse(String paramString) {
+	public CommandParam Parse(Set<String> commandPool, String paramString) {
 		CommandParam result = new CommandParam();
 		
 		if(paramString == null || "".equals(paramString)) {
 			return result;
 		}
 		
-		String[] params = paramString.split(" ");		
-		result.setAction(params[0]);
+		String[] params = paramString.split(" ");	
+		
+		if(commandPool != null 
+			&& !commandPool.contains(params[0])) {
+			throw new UndefinedCommandExecution(params[0]);
+		}
+		result.setAction(params[0]);		
+		
 		for(int i = 1; i < params.length; i = i + 2) {
 			if(params.length < i + 2) {
 				throw new ParamValueIsNullExecution(params[i]);

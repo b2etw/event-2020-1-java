@@ -1,5 +1,6 @@
 package tw.b2e.receipt.service;
 
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tw.b2e.receipt.common.NumberUtil;
+import tw.b2e.receipt.common.PeriodParser;
+import tw.b2e.receipt.common.ResultBuilder;
 import tw.b2e.receipt.dao.crawler.WinInfoDao;
 import tw.b2e.receipt.entity.Receipt;
 import tw.b2e.receipt.entity.WinInfo;
@@ -26,11 +29,7 @@ public class CheckService implements BaseService {
 	@Autowired
 	private WinInfoDao winInfoDao;
 
-	public final static String YEAR_PARAM_NAME = "-y";
-	public final static String MONTH_PARAM_NAME = "-m";
-	public final static String YEAR_WITH_MONTH_PARAM_NAME = "-ym";
 	public final static String RECEIPT_TEXT_PARAM_NAME = "-t";
-
 	public final static String RECEIPT_TEXT_SEPARATE = ",";
 
 	public final static String RESULT_TITLE_FORMAT = CheckServiceFormat.RESULT_TITLE_FORMAT;
@@ -40,38 +39,56 @@ public class CheckService implements BaseService {
 	public final static String RESULT_DETAIL_ITEM_FORMAT = CheckServiceFormat.RESULT_DETAIL_ITEM_FORMAT;
 
 	@Override
-	public String execute(CommandParam param) {
-		String period = null;
-		if (param.getParam(YEAR_WITH_MONTH_PARAM_NAME) != null) {
-			period = param.getParam(YEAR_WITH_MONTH_PARAM_NAME);
-		} else if (param.getParam(YEAR_PARAM_NAME) != null && param.getParam(MONTH_PARAM_NAME) != null) {
-			period = param.getParam(YEAR_PARAM_NAME) + param.getParam(MONTH_PARAM_NAME);
+	public String execute(CommandParam param) throws Exception {
+
+		try {
+			//取得期別參數
+			String period = PeriodParser.parse(param);
+
+			if (period == null) {
+				return ResultBuilder.error(CheckServiceFormat.RESULT_PARSE_PERIOD_FAIL);
+			}
+
+			// 取得開獎資訊
+			WinInfo winInfo = winInfoDao.get(period);
+
+			// 取使用者傳入的發票號碼
+			List<Receipt> receipts = parseReceipt(param);
+
+			if (receipts == null || receipts.isEmpty()) {
+				return ResultBuilder.error(CheckServiceFormat.RESULT_PARSE_RECEIPT_FAIL);
+			}
+
+			// 對獎
+			List<Receipt> winReceipt = matchAllPrize(winInfo, receipts);
+
+			// 產生回傳資料格式
+			return ResultBuilder.ok(genResult(winInfo, winReceipt));
+		} catch (ConnectException e) {
+			return ResultBuilder.error(e.getMessage());
 		}
-
-		//取得開獎資訊
-		WinInfo winInfo = winInfoDao.get(period);
-
-		//取使用者傳入的發票號碼
-		List<Receipt> receipts = parseReceipt(param);
-
-		//對獎
-		List<Receipt> winReceipt = matchAllPrize(winInfo, receipts);
-
-		//產生回傳資料格式
-		return genResult(winInfo, winReceipt);
 	}
 
 	/**
 	 * 取傳入的發票號碼
+	 * 
 	 * @param param
 	 * @return
 	 */
 	private List<Receipt> parseReceipt(CommandParam param) {
 		List<Receipt> result = new ArrayList<Receipt>();
 
+		if (param.getParam(CheckService.RECEIPT_TEXT_PARAM_NAME) == null) {
+			return null;
+		}
+
 		String[] receipts = param.getParam(CheckService.RECEIPT_TEXT_PARAM_NAME).split(RECEIPT_TEXT_SEPARATE);
 		for (String receipt : receipts) {
-			result.add(new Receipt(receipt));
+			if (receipt.length() == 10) {
+				result.add(new Receipt(receipt.substring(2)));
+			} else {
+				result.add(new Receipt(receipt));
+			}
 		}
 
 		return result;
@@ -79,33 +96,34 @@ public class CheckService implements BaseService {
 
 	/**
 	 * 依據開獎資訊與傳入的發票清單進行對獎作業，並回傳中獎發票清單
+	 * 
 	 * @param winInfo
 	 * @param originReceipts
 	 * @return 中獎發票清單
 	 */
 	private List<Receipt> matchAllPrize(WinInfo winInfo, List<Receipt> originReceipts) {
-		//複製一份List避免異動到原始的List物件
+		// 複製一份List避免異動到原始的List物件
 		List<Receipt> result = new ArrayList<Receipt>(originReceipts);
-		
+
 		matchPrize(winInfo, PrizeEnum.SPECIAL_FIRST, result);
 		matchPrize(winInfo, PrizeEnum.SPECIAL_SECOND, result);
 		matchPrize(winInfo, PrizeEnum.EXTRA_SIXTH, result);
 
 		List<String> baseWinNumber = winInfo.get(PrizeEnum.FIRST);
 		matchPrize(baseWinNumber, PrizeEnum.SIXTH, result);
-		//因發票號碼末三碼已無符合中獎發票，後續不需再次對獎，故提前從List中移除，減少後續迴圈次數
+		// 因發票號碼末三碼已無符合中獎發票，後續不需再次對獎，故提前從List中移除，減少後續迴圈次數
 		removeNotWinReceipt(result);
 		matchPrize(baseWinNumber, PrizeEnum.FIFTH, result);
-		//因發票號碼末四碼已無符合中獎發票，後續不需再次對獎，故提前從List中移除，減少後續迴圈次數
+		// 因發票號碼末四碼已無符合中獎發票，後續不需再次對獎，故提前從List中移除，減少後續迴圈次數
 		removeNotWinReceipt(result);
 		matchPrize(baseWinNumber, PrizeEnum.FOURTH, result);
 		matchPrize(baseWinNumber, PrizeEnum.THIRD, result);
 		matchPrize(baseWinNumber, PrizeEnum.SECOND, result);
 		matchPrize(baseWinNumber, PrizeEnum.FIRST, result);
 
-		//清除所有未中獎發票號碼
+		// 清除所有未中獎發票號碼
 		removeNotWinReceipt(result);
-		
+
 		return result;
 	}
 
@@ -115,8 +133,9 @@ public class CheckService implements BaseService {
 
 	private void matchPrize(List<String> winNumbers, PrizeEnum prize, List<Receipt> receipts) {
 		for (String winNumber : winNumbers) {
-			//除了特別獎、特獎、頭獎的中獎條件需8碼全符合之外，其餘皆比對末N碼，故依照獎別擷取末N碼號碼
-			String suffix = prize.getMatchBeginIndex() == 8 ? winNumber : winNumber.substring(prize.getMatchBeginIndex());
+			// 除了特別獎、特獎、頭獎的中獎條件需8碼全符合之外，其餘皆比對末N碼，故依照獎別擷取末N碼號碼
+			String suffix = prize.getMatchBeginIndex() == 8 ? winNumber
+					: winNumber.substring(prize.getMatchBeginIndex());
 			for (Receipt receipt : receipts) {
 				if (receipt.getNumber().endsWith(suffix)) {
 					if (!receipt.isWin() || (receipt.isWin() && receipt.getPrize().getAmount() < prize.getAmount())) {
@@ -129,6 +148,7 @@ public class CheckService implements BaseService {
 
 	/**
 	 * 移除未中獎的發票
+	 * 
 	 * @param receipts
 	 */
 	private void removeNotWinReceipt(List<Receipt> receipts) {
@@ -150,6 +170,7 @@ public class CheckService implements BaseService {
 
 	/**
 	 * 產生回傳資料
+	 * 
 	 * @param winInfo
 	 * @param receipts
 	 * @return
@@ -161,7 +182,7 @@ public class CheckService implements BaseService {
 		result.append(String.format(RESULT_CNT_FORMAT, receipts.size()));
 		result.append(String.format(RESULT_AMOUNT_FORMAT, NumberUtil.format4Thousandth(sumPrizeAmount(receipts))));
 
-		//有中獎才回傳明細區塊
+		// 有中獎才回傳明細區塊
 		if (receipts.size() > 0) {
 			result.append(RESULT_DETAIL_TITLE_FORMAT);
 			for (Receipt receipt : receipts) {

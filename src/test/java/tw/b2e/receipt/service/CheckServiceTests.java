@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import tw.b2e.receipt.common.NumberUtil;
+import tw.b2e.receipt.common.PeriodParser;
 import tw.b2e.receipt.entity.Receipt;
 import tw.b2e.receipt.enums.PrizeEnum;
 import tw.b2e.receipt.vo.CommandParam;
@@ -30,11 +31,11 @@ class CheckServiceTests {
 	}
 
 	@Test
-	void Should_ShowPrizeItem_When_ParamIsWinReceipt() {
+	void Should_ShowPrizeItem_When_ParamIsWinReceipt() throws Exception {
 		String winReceiptNumber = "12620024";
 
-		param.putParam(CheckService.YEAR_PARAM_NAME, "109");
-		param.putParam(CheckService.MONTH_PARAM_NAME, "02");
+		param.putParam(PeriodParser.YEAR_PARAM_NAME, "109");
+		param.putParam(PeriodParser.MONTH_PARAM_NAME, "02");
 		param.putParam(CheckService.RECEIPT_TEXT_PARAM_NAME, winReceiptNumber);
 
 		String result = checkService.execute(param);
@@ -52,7 +53,7 @@ class CheckServiceTests {
 	}
 
 	@Test
-	void Should_ShowPrizeItems_When_ParamIsWinReceipts() {
+	void Should_ShowPrizeItems_When_ParamIsWinReceipts() throws Exception {
 		List<Receipt> winReceipts = new ArrayList<Receipt>();
 		winReceipts.add(new Receipt("12620024", PrizeEnum.SPECIAL_FIRST));
 		winReceipts.add(new Receipt("39793895", PrizeEnum.SPECIAL_SECOND));
@@ -64,8 +65,8 @@ class CheckServiceTests {
 		notWinReceipts.add(new Receipt("99999999"));
 		notWinReceipts.add(new Receipt("00000001"));
 
-		param.putParam(CheckService.YEAR_PARAM_NAME, "109");
-		param.putParam(CheckService.MONTH_PARAM_NAME, "02");
+		param.putParam(PeriodParser.YEAR_PARAM_NAME, "109");
+		param.putParam(PeriodParser.MONTH_PARAM_NAME, "02");
 		param.putParam(CheckService.RECEIPT_TEXT_PARAM_NAME, join(winReceipts, notWinReceipts).toString());
 
 		String result = checkService.execute(param);
@@ -86,14 +87,14 @@ class CheckServiceTests {
 	}
 	
 	@Test
-	void Should_ShowNotWinInfo_When_ParamIsNotWinReceipts() {
+	void Should_ShowNotWinInfo_When_ParamIsNotWinReceipts() throws Exception {
 		
 		List<Receipt> notWinReceipts = new ArrayList<Receipt>();
 		notWinReceipts.add(new Receipt("99999999"));
 		notWinReceipts.add(new Receipt("00000001"));
 
-		param.putParam(CheckService.YEAR_PARAM_NAME, "109");
-		param.putParam(CheckService.MONTH_PARAM_NAME, "02");
+		param.putParam(PeriodParser.YEAR_PARAM_NAME, "109");
+		param.putParam(PeriodParser.MONTH_PARAM_NAME, "02");
 		param.putParam(CheckService.RECEIPT_TEXT_PARAM_NAME, join(notWinReceipts).toString());
 
 		String result = checkService.execute(param);

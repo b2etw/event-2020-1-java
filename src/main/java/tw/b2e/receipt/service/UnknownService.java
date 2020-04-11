@@ -2,6 +2,7 @@ package tw.b2e.receipt.service;
 
 import org.springframework.stereotype.Component;
 
+import tw.b2e.receipt.common.ResultBuilder;
 import tw.b2e.receipt.format.service.UnknownServiceFormat;
 import tw.b2e.receipt.vo.CommandParam;
 
@@ -12,7 +13,7 @@ public class UnknownService implements BaseService{
 	
 	@Override
 	public String execute(CommandParam param) {
-		return String.format(RESULT_FORMAT, param.getAction());
+		return ResultBuilder.ok(String.format(RESULT_FORMAT, param.getAction()));
 	}
 
 }

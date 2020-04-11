@@ -43,7 +43,7 @@ class WinServiceTests {
 	}
 
 	@Test
-	void Should_ShowWinInfo_When_ParamIsYWithM() {
+	void Should_ShowWinInfo_When_ParamIsYWithM() throws Exception {
 		param.putParam("-y", "109");
 		param.putParam("-m", "02");
 		String result = winService.execute(param);
@@ -52,7 +52,7 @@ class WinServiceTests {
 	}
 
 	@Test
-	void Should_ShowWinInfo_When_ParamIsYM() {
+	void Should_ShowWinInfo_When_ParamIsYM() throws Exception {
 		param.putParam("-ym", "10901");
 		String result = winService.execute(param);
 		String answer = String.format(WinService.RESULT_FORMAT, answerArgs.toArray());

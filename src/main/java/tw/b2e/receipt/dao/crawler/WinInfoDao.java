@@ -1,9 +1,11 @@
 package tw.b2e.receipt.dao.crawler;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -18,35 +20,32 @@ import tw.b2e.receipt.enums.PrizeEnum;
 public class WinInfoDao {
 
 	private static String URL_FORMAT = "https://www.etax.nat.gov.tw/etw-main/front/ETW183W2_%s/";
-	public WinInfo get(String period) {
+	public WinInfo get(String period) throws IOException {
 		WinInfo result = new WinInfo();
-		
-		if(period == null || !isRepublicYear(period)) {
-			throw new RuntimeException("請傳入民國年月(yyymm).");
-		}		
 		
 		if(Integer.valueOf(period) % 2 == 0) {//URL規則為該期別單數月
 			period = String.valueOf(Integer.valueOf(period) - 1);
 		}
 		
 		String url = String.format(URL_FORMAT, period);
-		try {
-			Document doc = Jsoup.connect(url).get();
-			Elements elements = doc.select("tbody > tr");
-			result.setPeriod(getPeriod(elements));
-			result.add(PrizeEnum.SPECIAL_FIRST, getSpecialFirst(elements));			
-			result.add(PrizeEnum.SPECIAL_SECOND, getSpecialSecond(elements));
-			result.add(PrizeEnum.FIRST, getFirst(elements));
-			result.add(PrizeEnum.SECOND, getSecond(elements));			
-			result.add(PrizeEnum.THIRD, getThird(elements));
-			result.add(PrizeEnum.FOURTH, getFourth(elements));
-			result.add(PrizeEnum.FIFTH, getFifth(elements));
-			result.add(PrizeEnum.SIXTH, getSixth(elements));			
-			result.add(PrizeEnum.EXTRA_SIXTH, getExtraSixth(elements));
-			
-		} catch (IOException e) {
-			e.printStackTrace();
+		Response response = Jsoup.connect(url).execute();
+		if (200 != response.statusCode()) {
+			throw new ConnectException(String.format("連線失敗 statusCode:%s URL:%s", response.statusCode(), url));
 		}
+		
+		Document doc = response.parse();			
+		Elements elements = doc.select("tbody > tr");
+		result.setPeriod(getPeriod(elements));
+		result.add(PrizeEnum.SPECIAL_FIRST, getSpecialFirst(elements));			
+		result.add(PrizeEnum.SPECIAL_SECOND, getSpecialSecond(elements));
+		result.add(PrizeEnum.FIRST, getFirst(elements));
+		result.add(PrizeEnum.SECOND, getSecond(elements));			
+		result.add(PrizeEnum.THIRD, getThird(elements));
+		result.add(PrizeEnum.FOURTH, getFourth(elements));
+		result.add(PrizeEnum.FIFTH, getFifth(elements));
+		result.add(PrizeEnum.SIXTH, getSixth(elements));			
+		result.add(PrizeEnum.EXTRA_SIXTH, getExtraSixth(elements));
+			
 		return result;
 	}
 	
@@ -107,9 +106,5 @@ public class WinInfoDao {
 			result.setMemo(memoElement.text());
 		
 		return result;
-	}
-	
-	private boolean isRepublicYear(String period) {
-		return period.length() == 5;
 	}
 }

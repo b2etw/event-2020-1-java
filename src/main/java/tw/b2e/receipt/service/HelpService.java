@@ -2,6 +2,7 @@ package tw.b2e.receipt.service;
 
 import org.springframework.stereotype.Component;
 
+import tw.b2e.receipt.common.ResultBuilder;
 import tw.b2e.receipt.format.service.HelpServiceFormat;
 import tw.b2e.receipt.vo.CommandParam;
 
@@ -14,7 +15,7 @@ public class HelpService implements BaseService{
 	
 	@Override
 	public String execute(CommandParam param) {
-		return RESULT_FORMAT;
+		return ResultBuilder.ok(RESULT_FORMAT);
 	}
 
 }

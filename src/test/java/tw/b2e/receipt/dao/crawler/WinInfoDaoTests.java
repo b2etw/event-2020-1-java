@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +36,7 @@ class WinInfoDaoTests {
 	}
 
 	@Test
-	void Should_GetWinReceipt_When_ParamIs10901() {
+	void Should_GetWinReceipt_When_ParamIs10901() throws IOException {
 		String period = "10901";
 
 		answerInfo.setPeriod("109年01 ~02月");
@@ -53,7 +54,7 @@ class WinInfoDaoTests {
 	}
 	
 	@Test
-	void Should_GetWinReceipt_When_ParamIs10902() {
+	void Should_GetWinReceipt_When_ParamIs10902() throws IOException {
 		String period = "10902";
 
 		answerInfo.setPeriod("109年01 ~02月");
@@ -71,7 +72,7 @@ class WinInfoDaoTests {
 	}
 
 	@Test
-	void Should_GetWinReceipt_When_ParamIs10812() {
+	void Should_GetWinReceipt_When_ParamIs10812() throws IOException {
 		String period = "10812";
 
 		answerInfo.setPeriod("108年11 ~12月");

@@ -1,6 +1,14 @@
 package tw.b2e.receipt.format.service;
 
 public class WinServiceFormat {
+	
+	
+	public final static String RESULT_PARSE_PERIOD_FAIL = "無傳入發票期別參數(-y,-m,-ym)或日期格式錯誤\r\n" + 
+			"日期請使用民國年月，範例如下\r\n" + 
+			"/receipt win -ym <民國年月份>\r\n" + 
+			"or\r\n" + 
+			"/receipt win -y <民國年> -m <月份>";
+	
 	public final static String RESULT_FORMAT = "--------------------------期別:%s--------------------------\r\n" + 
 			"特別獎:%s\r\n" + 
 			"%s\r\n" + 
