@@ -48,6 +48,7 @@ public class ReceiptRouter implements Router<SlashCommandRequest> {
 	@Bean
 	@ConditionalOnBean(value = HelpService.class)
 	public void initServiceMapping() {
+		//初始化時，將Service註冊進Mapping表
 		serviceMapping.put(HelpService.ACTION_COMMAND, helpService);
 		serviceMapping.put(WinService.ACTION_COMMAND, winService);
 		serviceMapping.put(CheckService.ACTION_COMMAND, checkService);
@@ -62,7 +63,7 @@ public class ReceiptRouter implements Router<SlashCommandRequest> {
 
 		logger.info("commandParam.getAction():" + commandParam.getAction());
 		
-		if (commandParam.getAction() == null) {
+		if (commandParam.getAction() == null) {//無參數時，預設為Help服務
 			return serviceMapping.get(HelpService.ACTION_COMMAND).execute(commandParam);
 		}else if(serviceMapping.get(commandParam.getAction()) == null) {
 			return unknownService.execute(commandParam);
