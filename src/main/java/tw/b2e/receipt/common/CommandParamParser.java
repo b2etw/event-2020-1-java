@@ -4,7 +4,8 @@ import org.springframework.stereotype.Component;
 
 import tw.b2e.receipt.ParamValueIsNullExecution;
 import tw.b2e.receipt.vo.CommandParam;
- * 
+
+/* 
  * @author NaiHua
  * 目的:解析slash command指令參數
  * 範例:
