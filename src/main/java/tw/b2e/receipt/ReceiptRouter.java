@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.slack.api.bolt.request.builtin.SlashCommandRequest;
 
+import lombok.extern.slf4j.Slf4j;
 import tw.b2e.common.Router;
 import tw.b2e.receipt.service.BaseService;
 import tw.b2e.receipt.service.HelpService;
@@ -22,9 +23,8 @@ import tw.b2e.receipt.vo.CommandParam;
 import tw.b2e.receipt.common.CommandParamParser;
 
 @Component
+@Slf4j
 public class ReceiptRouter implements Router<SlashCommandRequest> {
-
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private final Map<String, BaseService> serviceMapping = new HashMap<String, BaseService>();
 
@@ -47,12 +47,8 @@ public class ReceiptRouter implements Router<SlashCommandRequest> {
 	@Override
 	public String handle(SlashCommandRequest req) {
 
-		logger.info("req.getPayload().getText():" + req.getPayload().getText());
-
 		CommandParam commandParam = commandParamParser.Parse(req.getPayload().getText());
 
-		logger.info("commandParam.getAction():" + commandParam.getAction());
-		
 		if (commandParam.getAction() == null) {//無參數時，預設為Help服務
 			return serviceMapping.get(HelpService.ACTION_COMMAND).execute(commandParam);
 		}else if(serviceMapping.get(commandParam.getAction()) == null) {
