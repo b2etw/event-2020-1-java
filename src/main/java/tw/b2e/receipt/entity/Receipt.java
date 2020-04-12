@@ -1,7 +1,9 @@
 package tw.b2e.receipt.entity;
 
+import lombok.Data;
 import tw.b2e.receipt.enums.PrizeEnum;
 
+@Data
 public class Receipt {
 	private String number;
 	private PrizeEnum prize;
@@ -21,22 +23,7 @@ public class Receipt {
 		this.prize = prize;
 	}
 	
-	public String getNumber() {
-		return number;
-	}
-	public void setNumber(String number) {
-		this.number = number;
-	}
 	public boolean isWin() {
 		return prize != null;
-	}
-	
-	public PrizeEnum getPrize() {
-		return prize;
-	}
-	public void setPrize(PrizeEnum prize) {
-		this.prize = prize;
-	}
-	
-	
+	}	
 }

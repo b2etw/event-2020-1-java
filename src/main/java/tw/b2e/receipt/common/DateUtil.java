@@ -7,12 +7,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class DateUtil {
-
-	private static Logger log = LoggerFactory.getLogger(DateUtil.class);
 
 	/** yyyyMMdd. */
 	public final static String FORMAT_DATE = "yyyyMMdd";

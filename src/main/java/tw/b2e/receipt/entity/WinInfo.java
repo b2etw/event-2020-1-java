@@ -6,20 +6,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import lombok.Data;
 import tw.b2e.receipt.enums.PrizeEnum;
 
+@Data
 public class WinInfo {
 	private String period;
 	private Map<PrizeEnum, PrizeInfo> prizes = new HashMap<PrizeEnum, PrizeInfo>();
 		
-	public String getPeriod() {
-		return period;
-	}
-
-	public void setPeriod(String period) {
-		this.period = period;
-	}
-
 	public List<String> get(PrizeEnum key) {		
 		return prizes.get(key).getNumbers();
 	}
@@ -27,11 +21,7 @@ public class WinInfo {
 	public String getPrizeMemo(PrizeEnum key) {		
 		return prizes.get(key).getMemo();
 	}
-	
-	public void set(Map<PrizeEnum, PrizeInfo> prizes) {
-		this.prizes = prizes;
-	}
-	
+		
 	public void setPrizeMemo(PrizeEnum key, String memo) {
 		if(prizes.get(key) != null) {
 			prizes.get(key).setMemo(memo);

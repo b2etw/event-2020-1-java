@@ -5,8 +5,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.slack.api.bolt.request.builtin.SlashCommandRequest;
 
+import lombok.extern.slf4j.Slf4j;
 import tw.b2e.common.Router;
 import tw.b2e.receipt.service.BaseService;
 import tw.b2e.receipt.service.CheckService;
@@ -27,9 +26,8 @@ import tw.b2e.receipt.execution.ParamValueIsNullExecution;
 import tw.b2e.receipt.execution.UndefinedCommandExecution;
 
 @Component
+@Slf4j
 public class ReceiptRouter implements Router<SlashCommandRequest> {
-
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private final Map<String, BaseService> servicePool = new HashMap<String, BaseService>();
 
@@ -74,7 +72,7 @@ public class ReceiptRouter implements Router<SlashCommandRequest> {
 		}catch (UndefinedCommandExecution e) {
 			return ResultBuilder.error(e.getMessage());
 		}catch (Exception e) {
-			logger.error("發生異常.", e);
+			log.error("發生異常.", e);
 			return ResultBuilder.error("發生無法預期的錯誤, 請使用-help指令確認參數是否正確或至GitHub上提報Issue.");
 		}
 	}

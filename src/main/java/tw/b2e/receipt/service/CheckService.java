@@ -4,8 +4,6 @@ import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +19,6 @@ import tw.b2e.receipt.vo.CommandParam;
 
 @Service
 public class CheckService implements BaseService {
-
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	public final static String ACTION_COMMAND = "check";
 

@@ -3,7 +3,13 @@ package tw.b2e.receipt.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Data;
+
+@Data
 public class PrizeInfo {
+	
+	private List<String> numbers = new ArrayList<String>();
+	private String memo;
 	
 	public PrizeInfo() {
 		super();
@@ -19,22 +25,4 @@ public class PrizeInfo {
 		this.numbers = numbers;
 		this.memo = memo;
 	}
-	
-	private List<String> numbers = new ArrayList<String>();
-	private String memo;
-	public List<String> getNumbers() {
-		return numbers;
-	}
-
-	public void setNumbers(List<String> numbers) {
-		this.numbers = numbers;
-	}
-
-	public String getMemo() {
-		return memo;
-	}
-
-	public void setMemo(String memo) {
-		this.memo = memo;
-	}	
 }
