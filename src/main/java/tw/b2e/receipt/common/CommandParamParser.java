@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
 import tw.b2e.receipt.execution.ParamValueIsNullExecution;
 import tw.b2e.receipt.execution.UndefinedCommandExecution;
 import tw.b2e.receipt.vo.CommandParam;
@@ -16,6 +17,7 @@ import tw.b2e.receipt.vo.CommandParam;
  *  /receipt win -y 2019 -m 02 => CommandParam物件 {"action":"win", "params":{"-y":"2020", "-m":"02"}}
  */
 @Component
+@Slf4j
 public class CommandParamParser {
 		
 	
@@ -29,6 +31,9 @@ public class CommandParamParser {
 	 * @return CommandParam
 	 */
 	public CommandParam Parse(Set<String> commandPool, String paramString) {
+		
+		log.info(String.format("receive command:%s", paramString));
+		
 		CommandParam result = new CommandParam();
 		
 		if(paramString == null || "".equals(paramString)) {
