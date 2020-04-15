@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.5.RELEASE</version>
+        <version>2.2.6.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>tw.b2e</groupId>
@@ -48,47 +48,37 @@
                     <source>${java.version}</source>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>1.8.0</version>
+                <configuration>
+                    <from>
+                        <image>openjdk:11-jre-slim</image>
+                    </from>
+                    <to>
+                        <image>taiwanbackendgroup/${project.name}:${project.version}</image>
+                    </to>
+                    <container>
+                        <useCurrentTimestamp>true</useCurrentTimestamp>
+                        <entrypoint>
+                            <arg>/bin/sh</arg>
+                            <arg>-c</arg>
+                            <arg>java -Xms512m -Xmx512m -Dspring.profiles.active=${activeProfiles} -cp /app/resources:/app/classes:/app/libs/* tw.b2e.Event20201JavaApplication
+                            </arg>
+                        </entrypoint>
+                    </container>
+                    <allowInsecureRegistries>true</allowInsecureRegistries>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>deploy-to-dockerhub</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.google.cloud.tools</groupId>
-                        <artifactId>jib-maven-plugin</artifactId>
-                        <version>1.8.0</version>
-                        <configuration>
-                            <from>
-                                <image>openjdk:11-jre-slim</image>
-                            </from>
-                            <to>
-                                <image>taiwanbackendgroup/${project.name}:${project.version}</image>
-                            </to>
-                            <container>
-                                <useCurrentTimestamp>true</useCurrentTimestamp>
-                                <entrypoint>
-                                    <arg>/bin/sh</arg>
-                                    <arg>-c</arg>
-                                    <arg>java -Xms512m -Xmx512m -Dspring.profiles.active=${activeProfiles} -cp /app/resources:/app/classes:/app/libs/* tw.b2e.Event20201JavaApplication
-                                    </arg>
-                                </entrypoint>
-                            </container>
-                            <allowInsecureRegistries>true</allowInsecureRegistries>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>build</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
