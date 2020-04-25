@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 import org.springframework.test.util.ReflectionTestUtils;
 import tw.b2e.MockResponsePayload;
 import tw.b2e.news.ptt.entity.Board;
@@ -25,13 +26,17 @@ class NewsRouterTest {
 
   private NewsRouter newsRouter;
 
+  @Spy
+  private CommandService commandService;
+
   @Mock
   private ReplyService replyService;
+
 
   @BeforeEach
   void setUp() {
     MockitoAnnotations.initMocks(this);
-    newsRouter = new NewsRouter(replyService);
+    newsRouter = new NewsRouter(commandService, replyService);
   }
 
   @Test
@@ -65,7 +70,7 @@ class NewsRouterTest {
     // arrange
     String body = MockResponsePayload.builder()
         .command("/news")
-        .text("ptt list")
+        .text("list")
         .build()
         .toBodyString();
 

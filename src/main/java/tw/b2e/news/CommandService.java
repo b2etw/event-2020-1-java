@@ -16,6 +16,7 @@ import java.util.stream.IntStream;
 class CommandService {
 
   /**
+   * 打包為 PttCommand.
    *
    * @param text
    * @return

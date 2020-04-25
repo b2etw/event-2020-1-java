@@ -1,6 +1,5 @@
 package tw.b2e.news;
 
-import com.slack.api.app_backend.slash_commands.payload.SlashCommandPayload;
 import com.slack.api.bolt.request.builtin.SlashCommandRequest;
 import com.slack.api.model.block.LayoutBlock;
 import com.slack.api.model.block.SectionBlock;
@@ -10,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import tw.b2e.common.BlocksResponseRouter;
 import tw.b2e.news.ptt.entity.Board;
+import tw.b2e.news.ptt.entity.PttCommand;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,10 +35,13 @@ public class NewsRouter implements BlocksResponseRouter<SlashCommandRequest> {
     BOARDS.add(new Board("beauty", 696, "聊天", "◎《表特板》發文附圖", pttUrl("beauty")));
   }
 
+  private CommandService commandService;
   private ReplyService replyService;
 
   @Autowired
-  NewsRouter(ReplyService replyService) {
+  NewsRouter(CommandService commandService,
+             ReplyService replyService) {
+    this.commandService = commandService;
     this.replyService = replyService;
   }
 
@@ -57,11 +60,10 @@ public class NewsRouter implements BlocksResponseRouter<SlashCommandRequest> {
       return Collections.singletonList(sectionBlock("Mewo~"));
     }
 
-    SlashCommandPayload payload = req.getPayload();
-    String text = payload.getText();
+    PttCommand command = commandService.wrapCommand(req.getPayload().getText());
 
     // parser command
-    if (text.contains("list")) {
+    if (command.getMainOption().contains("list")) {
       // todo - data crawler
 
       // simple response
@@ -69,7 +71,7 @@ public class NewsRouter implements BlocksResponseRouter<SlashCommandRequest> {
     }
 
     // default response
-    return Collections.singletonList(sectionBlock(text));
+    return Collections.singletonList(sectionBlock(command.getMainOption()));
   }
 
   private SectionBlock sectionBlock(final String msg) {
