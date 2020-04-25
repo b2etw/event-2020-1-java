@@ -1,11 +1,17 @@
 package tw.b2e.news;
 
 import com.slack.api.bolt.request.builtin.SlashCommandRequest;
+import com.slack.api.model.block.LayoutBlock;
+import com.slack.api.model.block.composition.PlainTextObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 import tw.b2e.MockResponsePayload;
 
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class NewsRouterTest {
@@ -31,10 +37,12 @@ class NewsRouterTest {
         .toBodyString();
 
     // act
-    String act = newsRouter.handle(new SlashCommandRequest(body, null));
+    List<LayoutBlock> act = newsRouter.handle(new SlashCommandRequest(body, null));
 
     // assert
-    assertEquals("ptt gossiping", act);
+    assertThat(act.size()).isEqualTo(1);
+    PlainTextObject actText = (PlainTextObject) ReflectionTestUtils.getField(act.get(0), "text");
+    assertEquals("ptt gossiping", actText.getText());
   }
 
 }
