@@ -4,7 +4,7 @@ import com.slack.api.app_backend.slash_commands.payload.SlashCommandPayload;
 import com.slack.api.bolt.request.builtin.SlashCommandRequest;
 import com.slack.api.model.block.LayoutBlock;
 import com.slack.api.model.block.SectionBlock;
-import com.slack.api.model.block.composition.PlainTextObject;
+import com.slack.api.model.block.composition.MarkdownTextObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,6 +14,7 @@ import tw.b2e.news.ptt.entity.Board;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Component
@@ -25,6 +26,7 @@ public class NewsRouter implements BlocksResponseRouter<SlashCommandRequest> {
 
   // persisted
   private static final List<Board> BOARDS = new ArrayList<>();
+
   static {
     BOARDS.add(new Board("gossiping", 26432, "綜合", "◎【八卦】版主投票開始囉！", pttUrl("gossiping")));
     BOARDS.add(new Board("baseball", 4325, "棒球", "◎[棒球] 中職31年開幕", pttUrl("baseball")));
@@ -46,6 +48,15 @@ public class NewsRouter implements BlocksResponseRouter<SlashCommandRequest> {
 
   public List<LayoutBlock> handle(SlashCommandRequest req) {
     log.info("req: {}", req);
+
+    if (Objects.isNull(req)
+        || Objects.isNull(req.getPayload())
+        || Objects.isNull(req.getPayload().getText())
+        || req.getPayload().getText().isEmpty()) {
+      // oops
+      return Collections.singletonList(sectionBlock("Mewo~"));
+    }
+
     SlashCommandPayload payload = req.getPayload();
     String text = payload.getText();
 
@@ -58,10 +69,12 @@ public class NewsRouter implements BlocksResponseRouter<SlashCommandRequest> {
     }
 
     // default response
-    SectionBlock simpleBlock = new SectionBlock();
-    simpleBlock.setText(new PlainTextObject(text, true));
-
-    return Collections.singletonList(simpleBlock);
+    return Collections.singletonList(sectionBlock(text));
   }
 
+  private SectionBlock sectionBlock(final String msg) {
+    SectionBlock section = new SectionBlock();
+    section.setText(new MarkdownTextObject(msg, false));
+    return section;
+  }
 }

@@ -4,7 +4,6 @@ import com.slack.api.bolt.request.builtin.SlashCommandRequest;
 import com.slack.api.model.block.LayoutBlock;
 import com.slack.api.model.block.SectionBlock;
 import com.slack.api.model.block.composition.MarkdownTextObject;
-import com.slack.api.model.block.composition.PlainTextObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,7 +38,7 @@ class NewsRouterTest {
   @DisplayName("" +
       "GIVEN a [/news gossiping] command " +
       "WHEN news router handle it " +
-      "THEN response [ptt gossiping] message.")
+      "THEN response [gossiping] message.")
   void assert_handle_ptt_gossiping() {
     // arrange
     String body = MockResponsePayload.builder()
@@ -53,8 +52,8 @@ class NewsRouterTest {
 
     // assert
     assertThat(act.size()).isEqualTo(1);
-    PlainTextObject actText = (PlainTextObject) ReflectionTestUtils.getField(act.get(0), "text");
-    assertEquals("ptt gossiping", actText.getText());
+    MarkdownTextObject actText = (MarkdownTextObject) ReflectionTestUtils.getField(act.get(0), "text");
+    assertEquals("gossiping", actText.getText());
   }
 
   @Test
