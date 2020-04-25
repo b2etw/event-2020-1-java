@@ -28,7 +28,8 @@ class NewsRouterTest {
 
   @Spy
   private CommandService commandService;
-
+  @Spy
+  private PttCrawlerService pttCrawlerService;
   @Mock
   private ReplyService replyService;
 
@@ -36,7 +37,7 @@ class NewsRouterTest {
   @BeforeEach
   void setUp() {
     MockitoAnnotations.initMocks(this);
-    newsRouter = new NewsRouter(commandService, replyService);
+    newsRouter = new NewsRouter(commandService, pttCrawlerService, replyService);
   }
 
   @Test
