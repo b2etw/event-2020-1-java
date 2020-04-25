@@ -39,7 +39,7 @@ class NewsRouterTest {
       "GIVEN a [/news gossiping] command " +
       "WHEN news router handle it " +
       "THEN response [gossiping] message.")
-  void assert_handle_ptt_gossiping() {
+  void assert_handle_gossiping() {
     // arrange
     String body = MockResponsePayload.builder()
         .command("/news")
@@ -58,7 +58,7 @@ class NewsRouterTest {
 
   @Test
   @DisplayName("" +
-      "GITVEN a [/news ptt list] command " +
+      "GIVEN a [/news list] command " +
       "WHEN new router handle it " +
       "THEN response [A PTT board] message.")
   void assert_handler_ptt_list() {

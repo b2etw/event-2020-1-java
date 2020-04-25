@@ -12,12 +12,12 @@
 
 #### 列出看板最新 10 篇文章與連結
 ```
-/news [board]
+/news list [board]
 ```
 
 #### 列出看板最新 10 篇文章與連結, 且熱度 ( >n )
 ```
-/news [board] hot
+/news list [board] hot
 ```
 
 ---
