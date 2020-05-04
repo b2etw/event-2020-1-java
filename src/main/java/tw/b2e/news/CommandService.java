@@ -39,8 +39,7 @@ class CommandService {
     if (2 < commands.length) {
       pttCommand.setMainOption(commands[0]);
       pttCommand.setSubOperation(commands[1]);
-      pttCommand.setArgs(
-          Arrays.asList(Arrays.copyOfRange(commands, 2, commands.length)));
+      pttCommand.setArgs(Arrays.asList(Arrays.copyOfRange(commands, 2, commands.length)));
     }
 
     return pttCommand;
