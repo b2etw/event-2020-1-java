@@ -36,3 +36,24 @@
 * https://slack.dev/java-slack-sdk/guides/supported-web-frameworks
 * https://api.slack.com/tutorials/tunneling-with-ngrok
 * [Slack Bot Install](./doc/slack-bot-install.md)
+
+## SLACK bot for PTT
+#### 指令說明
+```
+/news help
+```
+
+#### 列出看板清單 (熱度前 5)
+```
+/news list
+```
+
+#### 列出看板最新 10 篇文章與連結
+```
+/news list [board]
+```
+
+#### 列出看板最新 10 篇文章與連結, 且熱度 ( >n )
+```
+/news list [board] hot
+```
